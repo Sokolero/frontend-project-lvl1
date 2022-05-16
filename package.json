@@ -1,8 +1,23 @@
 {
   "name": "@hexlet/code",
   "version": "1.0.0",
-  "description": "",
-  "keywords": [],
-  "main": "/bin/brain-games.js",
-  "dependencies": {}
+  "description": "brain-games",
+  "main": "index.js",
+  "bin": {
+    "brain-games": "bin/brain-games.js"
+  },
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sokolero/frontend-project-lvl1.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sokolero/frontend-project-lvl1/issues"
+  },
+  "homepage": "https://github.com/Sokolero/frontend-project-lvl1#readme"
 }
