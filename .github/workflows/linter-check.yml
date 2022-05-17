@@ -18,4 +18,5 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: make lint
+    - run: echo "Linter check has successfully finished"
 
