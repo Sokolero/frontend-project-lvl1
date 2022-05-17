@@ -17,6 +17,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+    - run: make install
     - run: make lint
-    - run: echo "Linter check has successfully finished"
+    - run: echo "build has successfully finished"
 
