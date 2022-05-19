@@ -3,9 +3,10 @@ import readlineSync from 'readline-sync';
 
 // base class for game
 export default class Game {
-	constructor(rounds, phrases) {
+	constructor(rounds, phrases, rules) {
     this.rounds = rounds;
 		this.phrases = phrases;
+		this.rules = rules
   }
 
 	username = undefined;
@@ -13,6 +14,7 @@ export default class Game {
 	result = 'NULL';
   lastAnswer = null;
   correctAnswer = null;
+	rules = ``;
 
 	// приватные
 	say(text) { // void
@@ -45,7 +47,7 @@ export default class Game {
     this.say(this.phrases.welcome());
     this.username = this.ask(this.phrases.askName());
     this.say(this.phrases.greeting(this.username));
-    this.say(this.phrases.sayRules())
+    this.say(this.rules)
 
     // game loop
     for (let n = 0; n < this.rounds; n++) {

@@ -1,17 +1,10 @@
 import Game from "../index.js";
 import phrases from "../phrases.js";
-
-function getRandomInt(min = 1, max = 100) {
-  const lMin = Math.ceil(min);
-  const lMax = Math.floor(max);
-  return Math.floor(Math.random() * (lMax - lMin)) + lMin;
-}
+import config from "../app.config.json" assert { type: "json" };
+import { getRandomInt } from "../utils/index.js";
 
 // класс реализация
 class GameEven extends Game {
-  constructor(rounds=3, phrases) {
-    super(rounds, phrases);
-  }
 
   getQuestionText() {
     // вернуть динамическое тело вопроса, то есть случайное число
@@ -27,6 +20,6 @@ class GameEven extends Game {
 }
 
 export default function() {
-  const newGame = new GameEven(3, phrases);
+  const newGame = new GameEven(config.ROUNDS, phrases, `Answer "yes" if the number is even, otherwise answer "no".`);
   newGame.run();
 }
