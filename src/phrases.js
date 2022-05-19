@@ -6,4 +6,4 @@ export default {
   onCorrect: () => 'Correct!',
   onFailed: (answer, correctAnswer, name) => `"${answer}" is wrong answer ;(. Correct answer is "${correctAnswer}".\nLet's try again, ${name}!`,
   congratulation: (name) => `Congratulations, ${name}!`,
-}
+};
