@@ -6,13 +6,16 @@ export default function getRandomInt(min = 1, max = 100) {
 
 // evclid algotithm
 export function getNod(num1, num2) {
-  let max = num1 > num2 ? num1 : num2;
-  let min = num1 <= num2 ? num1 : num2;
-  let rest = max % min;
+  const max = num1 > num2 ? num1 : num2;
+  const min = num1 <= num2 ? num1 : num2;
+  const rest = max % min;
 
   if (rest === 0) {
-    return min
-  } else {
-    return getNod(min, rest)
+    return min;
   }
+  return getNod(min, rest);
+}
+
+export function isPrime(num) {
+  return !(num % 2 === 0 || num % 3 === 0 || [1, 2, 3].includes(num));
 }
