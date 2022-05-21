@@ -1,63 +1,68 @@
 import readlineSync from 'readline-sync';
+import config from './app.config.js';
 
-export default function createGame(rounds = 3, phrases = {}, rules = '') {
-  return {
+export default function createGame(
+  rules,
+  phrases,
+  getQuestionText,
+  getCorrectAnswer,
+  rounds = config.ROUNDS,
+) {
+  const options = {
     rounds,
     phrases,
     rules,
-    username: undefined,
+    userName: undefined,
     result: 'NULL',
-    lastAnswer: null,
+    userAnswer: null,
     correctAnswer: null,
-    question: {
-      text: undefined,
-      correct: undefined,
-    },
+    questionText: null,
+  };
 
-    say(text) { // void
-      console.log(text);
-    },
-    ask(questionText) { // string
-      return readlineSync.question(questionText);
-    },
-    createQuestion() {
-      this.question.text = this.getQuestionText();
-      this.question.correct = this.getCorrectAnswer(this.question.text);
-    },
-    //
-    getQuestionText() {},
-    getCorrectAnswer() {},
-    // main method for game running
-    run() {
-      this.say(this.phrases.welcome());
-      this.username = this.ask(this.phrases.askName());
-      this.say(this.phrases.greeting(this.username));
-      this.say(this.rules);
+  function say(text) { // void
+    console.log(text);
+  }
 
-      // game loop
-      for (let n = 0; n < this.rounds; n += 1) {
-        this.createQuestion(); // создать объект вопроса
-        const answer = this.ask(
-          this.phrases.getQuestionText(this.question.text),
-        );
+  function ask(questionText) { // string
+    return readlineSync.question(questionText);
+  }
 
-        if (answer === this.question.correct) {
-          this.say(this.phrases.onCorrect());
-        } else {
-          this.result = 'FAILED';
-          this.lastAnswer = answer;
-          break;
-        }
-      }
+  function createQuestion() {
+    options.questionText = getQuestionText();
+    options.correctAnswer = getCorrectAnswer(options.questionText);
+  }
 
-      // game resume
-      if (this.result === 'FAILED') {
-        this.say(
-          this.phrases.onFailed(this.lastAnswer, this.question.correct, this.username),
-        );
+  // ==========
+  function run() {
+    say(options.phrases.welcome());
+    options.username = ask(options.phrases.askName());
+    say(options.phrases.greeting(options.username));
+    say(options.rules);
+
+    // game loop //
+    for (let n = 0; n < options.rounds; n += 1) {
+      createQuestion(); // создать объект вопроса
+      options.userAnswer = ask(options.phrases.getQuestionText(options.questionText));
+
+      if (options.userAnswer === options.correctAnswer) {
+        say(options.phrases.onCorrect());
       } else {
-        this.say(this.phrases.congratulation(this.username));
+        options.result = 'FAILED';
+        break;
       }
-    },
+    }
+
+    // game resume //
+    if (options.result === 'FAILED') {
+      say(
+        options.phrases.onFailed(options.userAnswer, options.correctAnswer, options.username),
+      );
+    } else {
+      say(options.phrases.congratulation(options.username));
+    }
+  }
+  // ============
+  return {
+    run,
   };
 }
