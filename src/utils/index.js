@@ -17,10 +17,10 @@ export function getNod(num1, num2) {
 }
 
 export function isPrime(num) {
-  for (let i = 2; i < (num / 2); i += 1) {
-    let rest = num % i
+  for (let i = 2; i <= (num / 2); i += 1) {
+    const rest = num % i;
     if (rest === 0) {
-      return false
+      return false;
     }
   }
   return true;

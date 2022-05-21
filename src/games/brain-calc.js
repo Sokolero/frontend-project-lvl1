@@ -1,10 +1,16 @@
-import Game from '../index.js';
+import createGame from '../index.js';
 import phrases from '../phrases.js';
 import config from '../app.config.js';
 import getRandomInt from '../utils/index.js';
 
-export class GameCalc extends Game {
-  static getQuestionText() {
+export default function createGameCalc() {
+  const game = createGame(
+    config.ROUNDS,
+    phrases,
+    'What is the result of the expression?',
+  );
+
+  game.getQuestionText = function () {
     // return question type of "5 + 19, 6 - 2, 90 * 2"
     const operators = ['+', '-', '*'];
     return [
@@ -12,9 +18,9 @@ export class GameCalc extends Game {
       operators[getRandomInt(0, 3)],
       getRandomInt(),
     ].join(' ');
-  }
+  };
 
-  static getCorrectAnswer(questionText) {
+  game.getCorrectAnswer = function (questionText) {
     const items = questionText.split(' ');// ["12", "+", "34"]
     switch (items[1]) {
       case '+':
@@ -26,10 +32,7 @@ export class GameCalc extends Game {
       default:
         return undefined;
     }
-  }
-}
+  };
 
-export default function main() {
-  const game = new GameCalc(config.ROUNDS, phrases, 'What is the result of the expression?');
-  game.run();
+  return game;
 }

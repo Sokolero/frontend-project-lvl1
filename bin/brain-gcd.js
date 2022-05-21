@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
-import main from '../src/games/brain-gcd.js';
+import createGameGcd from '../src/games/brain-gcd.js';
 
-main();
+const game = createGameGcd();
+game.run();

@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
-import main from '../src/games/brain-calc.js';
+import createGameCalc from '../src/games/brain-calc.js';
 
-main();
+const game = createGameCalc();
+game.run();

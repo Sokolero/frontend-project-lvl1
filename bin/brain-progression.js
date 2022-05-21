@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
-import main from '../src/games/brain-progression.js';
+import createGameProgression from '../src/games/brain-progression.js';
 
-main();
+const game = createGameProgression();
+game.run();

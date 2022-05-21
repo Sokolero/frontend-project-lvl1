@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
-import main from '../src/games/brain-even.js';
+import createGameEven from '../src/games/brain-even.js';
 
-main();
+const game = createGameEven();
+game.run();

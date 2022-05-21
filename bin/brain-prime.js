@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
-import main from '../src/games/brain-prime.js';
+import createGamePrime from '../src/games/brain-prime.js';
 
-main();
+const game = createGamePrime();
+game.run();

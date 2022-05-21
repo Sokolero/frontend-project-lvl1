@@ -1,24 +1,25 @@
-import Game from '../index.js';
+import createGame from '../index.js';
 import phrases from '../phrases.js';
 import config from '../app.config.js';
 import getRandomInt, { isPrime } from '../utils/index.js';
 
+export default function createGamePrime() {
+  const game = createGame(
+    config.ROUNDS,
+    phrases,
+    'Answer "yes" if given number is prime. Otherwise answer "no".',
+  );
 
-
-export class GamePrime extends Game {
-  static getQuestionText() {
+  game.getQuestionText = function () {
     // return prime number random
-    return String(getRandomInt())
-  }
+    return String(getRandomInt());
+  };
 
-  static getCorrectAnswer(questionText) {
+  game.getCorrectAnswer = function (questionText) {
     return isPrime(Number(questionText))
-      ? "yes"
-      : "no"
-  }
-}
+      ? 'yes'
+      : 'no';
+  };
 
-export default function main() {
-  const game = new GamePrime(config.ROUNDS, phrases, 'Answer "yes" if given number is prime. Otherwise answer "no".');
-  game.run();
+  return game;
 }

@@ -1,14 +1,20 @@
-import Game from '../index.js';
+import createGame from '../index.js';
 import phrases from '../phrases.js';
 import config from '../app.config.js';
 import getRandomInt from '../utils/index.js';
 
-export class GameProgression extends Game {
-  static getQuestionText() {
+// ==============================================
+export default function createGameProgression() {
+  const game = createGame(
+    config.ROUNDS,
+    phrases,
+    'What number is missing in the progression?',
+  );
+
+  // ----
+  game.getQuestionText = function () {
     // return string type of "5 7 9 11 13 .. 17 19"
-    // items count more than 4
-    // items count is random
-    // hiddden item position is random
+
     const len = getRandomInt(5, 11);
     const hiddenIndex = getRandomInt(0, len - 1);
     const firstItem = getRandomInt(0, 50);
@@ -22,9 +28,10 @@ export class GameProgression extends Game {
     progression[hiddenIndex] = '..';
 
     return progression.map((item) => String(item)).join(' ');
-  }
+  };
 
-  static getCorrectAnswer(questionText) {
+  // -----
+  game.getCorrectAnswer = function (questionText) {
     const progression = questionText.split(' ');
     const len = progression.length;
     const hiddenIndex = progression.indexOf('..');
@@ -41,10 +48,7 @@ export class GameProgression extends Game {
       Number(progression[hiddenIndex - 1])
       + (Number(progression[len - 1]) - Number(progression[0])) / (len - 1),
     );
-  }
-}
+  };
 
-export default function main() {
-  const game = new GameProgression(config.ROUNDS, phrases, 'What number is missing in the progression?');
-  game.run();
+  return game;
 }
